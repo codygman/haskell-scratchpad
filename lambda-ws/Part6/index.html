@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Lambda-WS Chat</title>
+    <script language="JavaScript">
+      function post(url, request) {
+        var xmlHttpReq = new XMLHttpRequest();
+        xmlHttpReq.open('POST', url, true);
+        xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xmlHttpReq.onreadystatechange = function() {
+          if (xmlHttpReq.readyState == 4) {
+            renderMessages(xmlHttpReq.responseText);
+          }
+        }
+        xmlHttpReq.send(request);
+      }
+
+      function send(message) {
+        post("http://localhost:8000/chat?" + message, "");
+      }
+
+      function renderMessages(json) {
+        document.getElementById('messages').value = json;
+      }
+
+      function updatepage(messages){
+        document.getElementById("result").innerHTML = str;
+      }
+    </script>
+  </head>
+  <body>
+    <textarea id="messages" style="width: 320px; height: 240px;"></textarea>
+    <form action="#">
+      <div><input id="message" type="text"> <button onclick="send(document.getElementById('message').value)">send</button></div>
+    </form>
+  </body>
+</html>
