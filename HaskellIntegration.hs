@@ -1,3 +1,5 @@
+-- HTTP, XML, RSS, and parsing in Haskell
+
 import Text.XML.Light.Lexer (XmlSource)
 import Text.XML.Light.Input (parseXML)
 import Text.XML.Light.Types (Content, Element, Element (elName), QName (QName), QName (qName))
