@@ -7,6 +7,16 @@ import Database.MySQL.Simple
 import Database.MySQL.Simple.QueryResults
 import Database.MySQL.Simple.Result
 
+connectInfo :: ConnectInfo
+connectInfo = ConnectInfo { connectHost = "localhost",
+                            connectPort = 3306,
+                            connectUser = "test",
+                        connectPassword = "test",
+                        connectDatabase = "test",
+                         connectOptions = [],
+                            connectPath = "",
+                             connectSSL = Nothing }
+
 data User = User { name :: String, age :: Int } deriving Show
 
 instance QueryResults User where
@@ -14,16 +24,6 @@ instance QueryResults User where
     where a = convert fa va
           b = convert fb vb
   convertResults fs vs  = convertError fs vs 2
-
-connectInfo :: ConnectInfo
-connectInfo = ConnectInfo {connectHost = "localhost",
-                           connectPort = 3306,
-                           connectUser = "test",
-                       connectPassword = "test",
-                       connectDatabase = "test",
-                        connectOptions = [],
-                           connectPath = "",
-                            connectSSL = Nothing }
 
 clean :: SqlCommand
 clean = sqlCmd_ "drop table if exists users"
@@ -41,7 +41,7 @@ user :: (String,Int) -> User
 user (name,age) = User { name = name, age = age }
 
 demo :: SqlQuery [User]
-demo = clean >> create >> insert "Alice" 26 >> insert "Bob" 24 >>  select
+demo = clean >> create >> insert "Alice" 26 >> insert "Bob" 24 >> select
 
 main :: IO ()
 main = do
